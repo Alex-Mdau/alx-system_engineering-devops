@@ -1,1 +1,1 @@
-This script adds execute permission to all subdirectories of the current directory for the owner, the group owner and all othe users 
+This script creates a directory with 751 permissions in the working directory 
