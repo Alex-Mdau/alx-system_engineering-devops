@@ -1,1 +1,1 @@
-This script changes the owner and the group owner respectively
+This script changes the owner of the file to another only if its owned my a specific one
