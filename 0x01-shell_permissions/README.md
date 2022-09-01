@@ -1,1 +1,1 @@
-This script creates a directory with 751 permissions in the working directory 
+This script changes group owner for a file 
