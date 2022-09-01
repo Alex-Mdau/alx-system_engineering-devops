@@ -1,1 +1,1 @@
-This script sets the mode of the file same as another (mirror) 
+This script adds execute permission to all subdirectories of the current directory for the owner, the group owner and all othe users 
