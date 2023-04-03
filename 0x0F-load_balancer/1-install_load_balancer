@@ -1,28 +1,31 @@
 #!/usr/bin/env bash
-# Create a script to install and configure HAProxy on lb-01 server
-# Configure HAProxy to send traffic to web-01 and web-02 servers
-# Distribute requests using a roundrobin algorithm
-# Make sure that HAProxy can be managed via an init script
-# Install and configure HAproxy on my lb-01 server.
-sudo apt-get -y update
-apt-get -y install haproxy
+# Configure Nginx so that its HTTP response contains a custom header (on web-01 and web-02)
+# The name of the custom HTTP header must be X-Served-By
+# The value of the custom HTTP header must be the hostname of the server Nginx is running on
+sudo apt-get update
+sudo apt-get -y install nginx
 
-# edit config file
-server_config=\
-"
-frontend  yonas-frontend
-        bind *:80
-        mode http
-        default_backend yonas-backend
-backend yonas-backend
-        balance roundrobin
-        server 63210-web-01 100.25.19.204:80 check
-        server 63210-web-02 54.157.159.85:80 check
-"
-echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
+# configure firewall to allow request through port 80
+sudo ufw allow 'Nginx HTTP'p with two different instances of the same
+    file when making changes.  Quit, or continue with caution.
+sudo mkdir -p /var/www/htmls file crashed.
+    If this is the case, use ":recover" or "vim -r 0-custom_http_response_header"
+# change permissions to allow us to easily create files in this directory
+sudo chmod -R 755 /var/wwwy, delete the swap file ".0-custom_http_response_header.swp"
+    to avoid this message.
+#  create the index page
+echo 'Hello World!' |sudo tee  /var/www/html/index.htmlexists!
 
-# enable haproxy to be started by init script
+# create a webpage for error 404
+echo "Ceci n'est pas une page" |sudo tee /var/www/html/404.html
 
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+# code to configure redirect for a single page(/redirect_me) and add header to display hostname
+string_for_replacement="server_name _;\n\tadd_header X-Served-By \$hostname;\n\trewrite ^\/redirect_me https:\/\/www.blog.ehoneahobed.com permanent;"
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
 
-sudo service haproxy restart
+# code to configure redirect for 404 error page
+string_for_replacement="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+sudo sed -i "s/listen 80 default_server;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+
+# restart the web server after updating the settings
+sudo service nginx restart
